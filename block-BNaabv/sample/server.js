@@ -6,11 +6,17 @@ let app = express();
 
 //middlewares
 app.use(express.json());
-// app.use(express.static());
 app.use(express.urlencoded({extended : false}));
 app.use(logger('dev'));
 app.use(cookieParser());
 
+//custom middleware
+app.use((req, res, next) => {
+    res.cookie('username', 'sohail cookie');
+    next();
+})
+
+//routes
 app.get('/', (req, res) => {
     res.send(`<h2>Welcome to express</h2>`);
 })
@@ -20,13 +26,11 @@ app.get('/about', (req, res) => {
 })
 
 app.post('/form', (req, res) => {
-    console.log(req.body);
-    res.send(req.body);
+    res.json(req.body);
 })
 
 app.post('/json', (req, res) => {
-    // console.log(res.send());
-    res.json();
+    res.json(req.body);
 })
 
 app.get('/users/:username', (req, res) => {
@@ -34,13 +38,13 @@ app.get('/users/:username', (req, res) => {
     res.send(`<h1>${username}</h1>`);
 })
 
-app.use((err, req, res, next) => {
-    res.send(err);
+//error handlers
+app.use((req, res, next) => {
+    res.send('Page not found');
 })
 
-app.use((req, res) => {
-    res.send(req.statusCode = 500);
-    res.send('error on client side');
+app.use((err, req, res, next) => {
+    res.send(err);
 })
 
 app.listen(3000, () => {
