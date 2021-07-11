@@ -19,8 +19,17 @@ app.use((req, res) => {
     })
 
     req.on("end", (req, res) => {
-        res.setHeader("Content-Type", "text/html");        
-        res.end()
+        if(req.url === "/" && req.method === "GET") {
+            res.setHeader("Content-Type", "text/html");
+            res.end()
+        } else if (req.url.split(".").pop() === 'css') {
+            res.setHeader("Content-Type", "text/css");
+            res.end();
+        } else if (["jpeg", "png", "jpg", "jfif"].includes(req.url.split('.').pop())) {
+            res.setHeader("Content-Type", "image/*");
+            res.end()
+
+        }
     })
 })
 
