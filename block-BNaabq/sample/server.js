@@ -1,20 +1,17 @@
 let express = require('express');
 let logger = require('morgan');
-let cookies = require('cookie-parser');
+let cookieParser = require('cookie-parser');
 
 let app = express();
 
+app.use(cookieParser());
 app.use(logger('dev'));
-app.use(cookies());
 
-app.use((req, res, next) => {
+app.use('/about', (req, res, next) => {
     console.log(req.cookies);
     res.cookie('username', 'sohail');
+    res.end("About Page");
     next();
-})
-
-app.get('/about', (req, res) => {
-    res.send('Welcome');
 })
 
 app.listen(3000, () => {
