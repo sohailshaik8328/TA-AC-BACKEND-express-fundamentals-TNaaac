@@ -47,3 +47,7 @@ app.use((err, req, res, next) => {
 app.listen(4000, () => {
     console.log('server is listening at port 4k');
 })
+
+// "cookie-parser": "^1.4.5",
+//     "express": "^4.17.1",
+//     "morgan": "^1.10.0"
