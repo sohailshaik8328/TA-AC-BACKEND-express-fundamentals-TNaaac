@@ -1,0 +1,14 @@
+img {
+    width: 200px;
+    margin: 2rem;
+}
+h1 {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 3rem;
+    color: #ffffff;
+}
+body {
+    background-color: crimson;
+    text-align: center;
+}
