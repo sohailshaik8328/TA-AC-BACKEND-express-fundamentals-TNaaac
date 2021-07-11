@@ -11,6 +11,11 @@ app.use(express.static(__dirname + '/public'));
 app.use(logger('dev'));
 app.use(cookieParser());
 
+
+app.use((req, res) => [
+    res.cookie('count', 1)
+])
+
 //routes
 app.get('/', (req, res) => {
     res.send(`<h1>Hey am / route page</h1>`);
@@ -26,6 +31,16 @@ app.get('/home', (req, res) => {
 
 app.get('/projects', (req, res) => {
     res.sendFile(__dirname + '/project.html');
+})
+
+//handle errors
+app.use((req, res) => {
+    res.send('Page not found');
+})
+
+app.use((err, req, res, next) => {
+    res.send(err);
+    next();
 })
 
 //server
