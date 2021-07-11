@@ -1,9 +1,14 @@
 let express = require('express');
+let logger = require('morgan');
 
 let app = express();
 
-app.use(express.urlencoded());
+//middle wares
+
+app.use(express.urlencoded({extended : false}));
 app.use(express.static(__dirname + '/public'));
+app.use(logger('dev'));
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
@@ -19,7 +24,7 @@ app.use('/users/:parameter', (req, res) => {
 })
 
 app.post('/new', (req, res) => {
-    res.json();
+    res.json(req.body);
 })
 app.listen(4000, () => {
     console.log('server is listening at port 4k');
