@@ -40,11 +40,12 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
     res.send(err);
-    next();
+    // next();
 })
 
 //server
 app.listen(4000, () => {
     console.log('server is listening at port 4k');
 })
+
 
